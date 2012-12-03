@@ -1,0 +1,17 @@
+diff -aurN vorbis-tools-1.4.0.orig/configure.ac vorbis-tools-1.4.0/configure.ac
+--- vorbis-tools-1.4.0.orig/configure.ac	2010-03-31 22:08:01.000000000 +0200
++++ vorbis-tools-1.4.0/configure.ac	2010-03-31 22:10:14.000000000 +0200
+@@ -171,10 +171,9 @@
+ I18N_LIBS=$INTLLIBS
+ 
+ SOCKET_LIBS=
+-AC_CHECK_LIB(socket, socket, SOCKET_LIBS="-lsocket")
+-AC_CHECK_LIB(network, socket, SOCKET_LIBS="-lnetwork")
+-AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")
+-
++AC_CHECK_FUNC(socket, , [AC_CHECK_LIB(socket, socket, SOCKET_LIBS="-lsocket")])
++AC_CHECK_FUNC(gethostbyname, , [AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")])
++AC_CHECK_FUNC(network, , [AC_CHECK_LIB(network, socket, SOCKET_LIBS="-lnetwork")])
+ 
+ dnl --------------------------------------------------
+ dnl Check for ogg123 critical libraries and other optional libraries
